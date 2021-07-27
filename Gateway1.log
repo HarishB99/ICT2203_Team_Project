@@ -1,15 +1,3 @@
-do sh run
-            ^
-% Invalid input detected at '^' marker.
-
-Gateway1#sh run
-Building configuration...
-
-Current configuration : 4013 bytes
-!
-! Last configuration change at 05:42:22 UTC Fri Jul 16 2021
-!
-version 16.6
 no service pad
 service timestamps debug datetime msec
 service timestamps log datetime msec
@@ -28,14 +16,50 @@ vrf definition Mgmt-vrf
 !
 enable secret 5 $1$BEiO$AI1MzMWiT4RITiS417mZb1
 !
-no aaa new-model
+aaa new-model
+!
+!
+aaa authentication login AUTH-LIST group tacacs+ local
+!
+!
+!
+!
+!
+!
+aaa session-id common
+clock timezone sgt 8 0
 switch 1 provision ws-c3650-24ps
 !
 !
 !
 !
+ip routing
 !
 ip domain name wzhjc.com
+ip dhcp excluded-address 192.168.0.65
+ip dhcp excluded-address 192.168.0.1
+ip dhcp excluded-address 192.168.0.97
+ip dhcp excluded-address 192.168.0.33
+ip dhcp excluded-address 192.168.0.31
+ip dhcp excluded-address 192.168.0.63
+ip dhcp excluded-address 192.168.0.79
+ip dhcp excluded-address 192.168.0.103
+!
+ip dhcp pool LAB1
+ network 192.168.0.0 255.255.255.224
+ default-router 192.168.0.1
+!
+ip dhcp pool LAB2
+ network 192.168.0.32 255.255.255.224
+ default-router 192.168.0.33
+!
+ip dhcp pool STAFF
+ network 192.168.0.64 255.255.255.240
+ default-router 192.168.0.65
+!
+ip dhcp pool NETADM
+ network 192.168.0.96 255.255.255.248
+ default-router 192.168.0.97
 !
 !
 !
@@ -63,7 +87,8 @@ diagnostic bootup level minimal
 spanning-tree mode rapid-pvst
 spanning-tree extend system-id
 !
-username rack_04 secret 5 $1$TTlG$jUKC.sEKLcyCj0F6O9m5O/
+username NetAdminWzhjc secret 5 $1$Zvut$cGQxX6xn8yPjyzDCfRG7C1
+username NetManWzhjc secret 5 $1$gV2k$meGiIEiDAAHi.wonEPOOd0
 !
 redundancy
  mode sso
@@ -78,7 +103,7 @@ class-map match-any system-cpp-police-topology-control
 class-map match-any system-cpp-police-sw-forward
   description Sw forwarding, L2 LVX data, LOGGING
 class-map match-any system-cpp-default
-  description DHCP Snooping, EWLC control, EWCL data 
+  description DHCP Snooping, EWLC control, EWCL data
 class-map match-any system-cpp-police-sys-data
   description Learning cache ovfl, Crypto Control, Exception, EGR Exception, NFL SAMPLED DATA, RPF Failed
 class-map match-any system-cpp-police-punt-webauth
@@ -109,7 +134,7 @@ class-map match-any system-cpp-police-system-critical
 !
 policy-map system-cpp-policy
 !
-! 
+!
 !
 !
 !
@@ -125,15 +150,22 @@ policy-map system-cpp-policy
 interface GigabitEthernet0/0
  vrf forwarding Mgmt-vrf
  no ip address
+ shutdown
  negotiation auto
 !
 interface GigabitEthernet1/0/1
+ description To Internet Firewall
+ no switchport
+ ip address 192.168.0.106 255.255.255.252
+ no shutdown
 !
 interface GigabitEthernet1/0/2
 !
 interface GigabitEthernet1/0/3
+ switchport mode trunk
 !
 interface GigabitEthernet1/0/4
+ switchport mode trunk
 !
 interface GigabitEthernet1/0/5
 !
@@ -185,15 +217,38 @@ interface GigabitEthernet1/1/4
 !
 interface Vlan1
  ip address 192.168.0.87 255.255.255.240
+ no shutdown
+!
+interface Vlan10
+ ip address 192.168.0.1 255.255.255.224
+ no shutdown
+!
+interface Vlan20
+ ip address 192.168.0.33 255.255.255.224
+ no shutdown
+!
+interface Vlan30
+ ip address 192.168.0.65 255.255.255.240
+ no shutdown
+!
+interface Vlan40
+ ip address 192.168.0.97 255.255.255.248
+ no shutdown
 !
 ip forward-protocol nd
 ip http server
 ip http authentication local
 ip http secure-server
+ip route 0.0.0.0 0.0.0.0 192.168.0.105
 ip ssh version 2
 !
 !
 !
+!
+!
+tacacs server TACACSVR
+ address ipv4 192.168.1.11
+ key S!t!ct@wzhjc55
 !
 !
 !
@@ -206,12 +261,13 @@ line con 0
 line aux 0
  stopbits 1
 line vty 0 4
- login local
+ login authentication AUTH-LIST
  transport input ssh
 line vty 5 15
- login local
+ login authentication AUTH-LIST
  transport input ssh
 !
+ntp server 192.168.0.84
 !
 !
 !
@@ -219,5 +275,3 @@ line vty 5 15
 !
 !
 end
-
-Gateway1#
