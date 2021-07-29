@@ -40,10 +40,18 @@ ip dhcp excluded-address 192.168.0.1
 ip dhcp excluded-address 192.168.0.33
 ip dhcp excluded-address 192.168.0.65
 ip dhcp excluded-address 192.168.0.97
-ip dhcp excluded-address 192.168.0.31
-ip dhcp excluded-address 192.168.0.63
-ip dhcp excluded-address 192.168.0.79
-ip dhcp excluded-address 192.168.0.103
+ip dhcp excluded-address 192.168.0.2
+ip dhcp excluded-address 192.168.0.3
+ip dhcp excluded-address 192.168.0.34
+ip dhcp excluded-address 192.168.0.35
+ip dhcp excluded-address 192.168.0.66
+ip dhcp excluded-address 192.168.0.67
+ip dhcp excluded-address 192.168.0.98
+ip dhcp excluded-address 192.168.0.99
+ip dhcp excluded-address 192.168.0.4 192.168.0.17
+ip dhcp excluded-address 192.168.0.36 192.168.0.49
+ip dhcp excluded-address 192.168.0.68 192.168.0.73
+ip dhcp excluded-address 192.168.0.100 192.168.0.101
 !
 ip dhcp pool LAB1
  network 192.168.0.0 255.255.255.224
@@ -84,8 +92,10 @@ crypto pki certificate chain TP-self-signed-2597812734
 !
 !
 diagnostic bootup level minimal
+!
 spanning-tree mode rapid-pvst
 spanning-tree extend system-id
+spanning-tree vlan 10,20,30,40 priority 28672
 !
 username NetAdminWzhjc secret 5 $1$fjme$6VOm9sbMDFUmOeXjCnCJm.
 username NetManWzhjc secret 5 $1$TNBD$LgOoPnS6dvmXiWmjwRg8n.
@@ -96,6 +106,7 @@ redundancy
 !
 transceiver type all
  monitoring
+no cdp run
 !
 !
 class-map match-any system-cpp-police-topology-control
@@ -162,10 +173,14 @@ interface GigabitEthernet1/0/1
 interface GigabitEthernet1/0/2
 !
 interface GigabitEthernet1/0/3
+ switchport trunk native vlan 100
  switchport mode trunk
+ spanning-tree guard root
 !
 interface GigabitEthernet1/0/4
+ switchport trunk native vlan 100
  switchport mode trunk
+ spanning-tree guard root
 !
 interface GigabitEthernet1/0/5
 !
@@ -220,19 +235,33 @@ interface Vlan1
  no shutdown
 !
 interface Vlan10
- ip address 192.168.0.1 255.255.255.224
+ ip address 192.168.0.3 255.255.255.224
+ standby version 2
+ standby 1 ip 192.168.0.1
+ standby 1 preempt
  no shutdown
 !
 interface Vlan20
- ip address 192.168.0.33 255.255.255.224
+ ip address 192.168.0.35 255.255.255.224
+ standby version 2
+ standby 2 ip 192.168.0.33
+ standby 2 priority 150
+ standby 2 preempt
  no shutdown
 !
 interface Vlan30
- ip address 192.168.0.65 255.255.255.240
+ ip address 192.168.0.67 255.255.255.240
+ standby version 2
+ standby 3 ip 192.168.0.65
+ standby 3 priority 150
+ standby 3 preempt
  no shutdown
 !
 interface Vlan40
- ip address 192.168.0.97 255.255.255.248
+ ip address 192.168.0.99 255.255.255.248
+ standby version 2
+ standby 4 ip 192.168.0.97
+ standby 4 preempt
  no shutdown
 !
 ip forward-protocol nd

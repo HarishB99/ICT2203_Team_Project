@@ -10,7 +10,8 @@ boot-end-marker
 !
 enable secret 5 $1$9YX9$UbNwEGTvrAXliJRr4GB5E/
 !
-username rack_04 secret 5 $1$jHAW$hF4HdO4VpIJWUsVrO02qX/
+username NetManWzhjc secret 5 $1$Zdnx$iV4W4nFrUVap5BATyTkk.1
+username NetAdminWzhjc secret 5 $1$aOtP$uhl7KIoVzecLfN5I28OlJ1
 aaa new-model
 !
 !
@@ -24,8 +25,12 @@ aaa authentication login AUTH group tacacs+ local
 aaa session-id common
 clock timezone sgt 8 0
 system mtu routing 1500
+ip arp inspection vlan 20,30
+ip arp inspection validate ip
 !
 !
+ip dhcp snooping vlan 20,30
+ip dhcp snooping
 ip domain-name wzhjc.com
 !
 !
@@ -36,6 +41,7 @@ ip domain-name wzhjc.com
 !
 !
 spanning-tree mode pvst
+spanning-tree portfast bpduguard default
 spanning-tree extend system-id
 !
 vlan internal allocation policy ascending
@@ -47,106 +53,221 @@ ip ssh version 2
 !
 !
 interface FastEthernet0/1
+ switchport trunk native vlan 100
+ switchport trunk allowed vlan 1-110,112-4094
  switchport mode trunk
+ switchport nonegotiate
+ ip arp inspection trust
+ ip dhcp snooping trust
 !
 interface FastEthernet0/2
+ switchport trunk native vlan 100
+ switchport trunk allowed vlan 1-110,112-4094
  switchport mode trunk
+ switchport nonegotiate
+ ip arp inspection trust
+ ip dhcp snooping trust
 !
 interface FastEthernet0/3
+ switchport access vlan 111
+ shutdown
 !
 interface FastEthernet0/4
+ switchport access vlan 111
+ shutdown
 !
 interface FastEthernet0/5
  switchport access vlan 20
  switchport mode access
+ switchport nonegotiate
+ switchport port-security
+ spanning-tree bpduguard enable
+ ip verify source port-security
+ ip dhcp snooping limit rate 3
 !
 interface FastEthernet0/6
  switchport access vlan 20
  switchport mode access
+ switchport nonegotiate
+ switchport port-security
+ spanning-tree bpduguard enable
+ ip verify source port-security
+ ip dhcp snooping limit rate 3
 !
 interface FastEthernet0/7
  switchport access vlan 20
  switchport mode access
+ switchport nonegotiate
+ switchport port-security
+ spanning-tree bpduguard enable
+ ip verify source port-security
+ ip dhcp snooping limit rate 3
 !
 interface FastEthernet0/8
  switchport access vlan 20
  switchport mode access
+ switchport nonegotiate
+ switchport port-security
+ spanning-tree bpduguard enable
+ ip verify source port-security
+ ip dhcp snooping limit rate 3
 !
 interface FastEthernet0/9
  switchport access vlan 20
  switchport mode access
+ switchport nonegotiate
+ switchport port-security
+ spanning-tree bpduguard enable
+ ip verify source port-security
+ ip dhcp snooping limit rate 3
 !
 interface FastEthernet0/10
  switchport access vlan 20
  switchport mode access
+ switchport nonegotiate
+ switchport port-security
+ spanning-tree bpduguard enable
+ ip verify source port-security
+ ip dhcp snooping limit rate 3
 !
 interface FastEthernet0/11
  switchport access vlan 20
  switchport mode access
+ switchport nonegotiate
+ switchport port-security
+ spanning-tree bpduguard enable
+ ip verify source port-security
+ ip dhcp snooping limit rate 3
 !
 interface FastEthernet0/12
  switchport access vlan 20
  switchport mode access
+ switchport nonegotiate
+ switchport port-security
+ spanning-tree bpduguard enable
+ ip verify source port-security
+ ip dhcp snooping limit rate 3
 !
 interface FastEthernet0/13
  switchport access vlan 20
  switchport mode access
+ switchport nonegotiate
+ switchport port-security
+ spanning-tree bpduguard enable
+ ip verify source port-security
+ ip dhcp snooping limit rate 3
 !
 interface FastEthernet0/14
  switchport access vlan 20
  switchport mode access
+ switchport nonegotiate
+ switchport port-security
+ spanning-tree bpduguard enable
+ ip verify source port-security
+ ip dhcp snooping limit rate 3
 !
 interface FastEthernet0/15
  switchport access vlan 20
  switchport mode access
+ switchport nonegotiate
+ switchport port-security
+ spanning-tree bpduguard enable
+ ip verify source port-security
+ ip dhcp snooping limit rate 3
 !
 interface FastEthernet0/16
  switchport access vlan 20
  switchport mode access
+ switchport nonegotiate
+ switchport port-security
+ spanning-tree bpduguard enable
+ ip verify source port-security
+ ip dhcp snooping limit rate 3
 !
 interface FastEthernet0/17
  switchport access vlan 20
  switchport mode access
+ switchport nonegotiate
+ switchport port-security
+ spanning-tree bpduguard enable
+ ip verify source port-security
+ ip dhcp snooping limit rate 3
 !
 interface FastEthernet0/18
  switchport access vlan 20
  switchport mode access
+ switchport nonegotiate
+ switchport port-security
+ spanning-tree bpduguard enable
+ ip verify source port-security
+ ip dhcp snooping limit rate 3
 !
 interface FastEthernet0/19
  switchport access vlan 30
  switchport mode access
+ switchport nonegotiate
+ switchport port-security
+ spanning-tree bpduguard enable
+ ip verify source port-security
+ ip dhcp snooping limit rate 3
 !
 interface FastEthernet0/20
  switchport access vlan 30
  switchport mode access
+ switchport nonegotiate
+ switchport port-security
+ spanning-tree bpduguard enable
+ ip verify source port-security
+ ip dhcp snooping limit rate 3
 !
 interface FastEthernet0/21
  switchport access vlan 30
  switchport mode access
+ switchport nonegotiate
+ switchport port-security
+ spanning-tree bpduguard enable
+ ip verify source port-security
+ ip dhcp snooping limit rate 3
 !
 interface FastEthernet0/22
  switchport access vlan 30
  switchport mode access
+ switchport nonegotiate
+ switchport port-security
+ spanning-tree bpduguard enable
+ ip verify source port-security
+ ip dhcp snooping limit rate 3
 !
 interface FastEthernet0/23
  switchport access vlan 30
  switchport mode access
+ switchport nonegotiate
+ switchport port-security
+ spanning-tree bpduguard enable
+ ip verify source port-security
+ ip dhcp snooping limit rate 3
 !
 interface FastEthernet0/24
  switchport mode access
 !
 interface GigabitEthernet0/1
+ switchport access vlan 111
+ shutdown
 !
 interface GigabitEthernet0/2
+ switchport access vlan 111
+ shutdown
 !
 interface Vlan1
  ip address 192.168.0.90 255.255.255.240
+ no shutdown
 !
 interface Vlan20
  no ip address
 !
 ip http server
 ip http secure-server
+no cdp run
 tacacs server TACACSERVER
  address ipv4 192.168.0.83
  key S!t!ct@wzhjc55
