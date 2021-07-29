@@ -1,6 +1,6 @@
-Cryptochecksum: 1a7dfe43 1fedc573 844dddb9 1c6e42c6
+Cryptochecksum: a93bc819 cc3b14cb 13e2b843 2cf34426
 : Saved
-: Written by enable_15 at 19:18:54.930 sgt Thu Jul 29 2021
+: Written by enable_15 at 07:28:30.081 sgt Fri Jul 30 2021
 !
 ASA Version 9.1(2)
 !
@@ -41,16 +41,16 @@ interface GigabitEthernet0/3
  no shutdown
 !
 interface GigabitEthernet0/4
- no nameif
- no security-level
+ nameif inside1
+ security-level 0
  ip address 192.168.0.105 255.255.255.252
  no shutdown
 !
 interface GigabitEthernet0/5
- shutdown
- no nameif
- no security-level
- no ip address
+ nameif inside2
+ security-level 0
+ ip address 192.168.0.109 255.255.255.252
+ no shutdown
 !
 interface Management0/0
  nameif Management
@@ -72,6 +72,8 @@ mtu dmz1 1500
 mtu Management 1500
 mtu outside2 1500
 mtu dmz2 1500
+mtu inside1 1500
+mtu inside2 1500
 icmp unreachable rate-limit 1 burst-size 1
 no asdm history enable
 arp timeout 14400
@@ -79,7 +81,15 @@ no arp permit-nonconnected
 access-group ALLOW_SSH in interface outside
 route outside 0.0.0.0 0.0.0.0 192.168.0.121 1
 route outside 0.0.0.0 0.0.0.0 192.168.0.125 10
+route inside1 192.168.0.0 255.255.255.224 192.168.0.106 1
+route inside2 192.168.0.0 255.255.255.224 192.168.0.110 10
+route inside2 192.168.0.32 255.255.255.224 192.168.0.110 1
+route inside1 192.168.0.32 255.255.255.224 192.168.0.106 10
+route inside2 192.168.0.64 255.255.255.240 192.168.0.110 1
+route inside1 192.168.0.64 255.255.255.240 192.168.0.106 10
 route dmz1 192.168.0.80 255.255.255.240 192.168.0.118 1
+route inside1 192.168.0.96 255.255.255.248 192.168.0.106 1
+route inside2 192.168.0.96 255.255.255.248 192.168.0.110 10
 timeout xlate 3:00:00
 timeout pat-xlate 0:00:30
 timeout conn 1:00:00 half-closed 0:10:00 udp 0:02:00 icmp 0:00:02
@@ -155,5 +165,5 @@ call-home
   subscribe-to-alert-group inventory periodic monthly 14
   subscribe-to-alert-group configuration periodic monthly 14
   subscribe-to-alert-group telemetry periodic daily
-Cryptochecksum:1a7dfe431fedc573844dddb91c6e42c6
+Cryptochecksum:a93bc819cc3b14cb13e2b8432cf34426
 : end

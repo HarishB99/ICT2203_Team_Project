@@ -133,12 +133,10 @@ ip nat inside source static udp 192.168.0.114 53 129.126.164.28 53 extendable
 ip nat inside source static udp 192.168.0.114 53 129.126.164.29 53 extendable
 ip nat inside source static udp 192.168.0.114 53 129.126.164.30 53 extendable
 ip route 0.0.0.0 0.0.0.0 172.27.47.26
-ip route 192.168.0.0 255.255.255.224 GigabitEthernet0/1
-ip route 192.168.0.32 255.255.255.224 GigabitEthernet0/1
-ip route 192.168.0.64 255.255.255.240 GigabitEthernet0/1
-ip route 192.168.0.96 255.255.255.248 GigabitEthernet0/1
-ip route 192.168.0.104 255.255.255.252 GigabitEthernet0/1
-ip route 192.168.0.108 255.255.255.252 GigabitEthernet0/1
+ip route 192.168.0.0 255.255.255.224 192.168.0.122
+ip route 192.168.0.32 255.255.255.224 192.168.0.122
+ip route 192.168.0.64 255.255.255.240 192.168.0.122
+ip route 192.168.0.96 255.255.255.248 192.168.0.122
 ip route 192.168.0.112 255.255.255.252 192.168.0.122
 ip route 192.168.0.116 255.255.255.252 192.168.0.122
 ip route 192.168.0.124 255.255.255.252 GigabitEthernet0/1
