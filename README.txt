@@ -1,6 +1,7 @@
 # R1
 - ACLs
 - Syslog
+- Netflow
 
 # R2
 - ACLs
@@ -33,7 +34,6 @@
 - IP Source Guard
 - Disable CDP
 - Syslog
-- Netflow
 
 # S2
 - Port security
