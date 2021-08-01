@@ -55,16 +55,19 @@ ip ssh version 2
 !
 !
 !
+interface Loopback0
+ no ip address
+!
 interface FastEthernet0/1
  switchport trunk native vlan 100
- switchport trunk allowed vlan 1-110,112-4094
+ switchport trunk allowed vlan 10,20,30,40
  switchport mode trunk
  ip arp inspection trust
  ip dhcp snooping trust
 !
 interface FastEthernet0/2
  switchport trunk native vlan 100
- switchport trunk allowed vlan 1-110,112-4094
+ switchport trunk allowed vlan 10,20,30,40
  switchport mode trunk
  ip arp inspection trust
  ip dhcp snooping trust
@@ -80,7 +83,9 @@ interface FastEthernet0/4
 interface FastEthernet0/5
  switchport access vlan 10
  switchport mode access
+ switchport port-security mac-address sticky
  switchport port-security
+ spanning-tree portfast
  spanning-tree bpduguard enable
  ip verify source port-security
  ip dhcp snooping limit rate 3
@@ -88,7 +93,9 @@ interface FastEthernet0/5
 interface FastEthernet0/6
  switchport access vlan 10
  switchport mode access
+ switchport port-security mac-address sticky
  switchport port-security
+ spanning-tree portfast
  spanning-tree bpduguard enable
  ip verify source port-security
  ip dhcp snooping limit rate 3
@@ -96,7 +103,9 @@ interface FastEthernet0/6
 interface FastEthernet0/7
  switchport access vlan 10
  switchport mode access
+ switchport port-security mac-address sticky
  switchport port-security
+ spanning-tree portfast
  spanning-tree bpduguard enable
  ip verify source port-security
  ip dhcp snooping limit rate 3
@@ -104,7 +113,9 @@ interface FastEthernet0/7
 interface FastEthernet0/8
  switchport access vlan 10
  switchport mode access
+ switchport port-security mac-address sticky
  switchport port-security
+ spanning-tree portfast
  spanning-tree bpduguard enable
  ip verify source port-security
  ip dhcp snooping limit rate 3
@@ -112,7 +123,9 @@ interface FastEthernet0/8
 interface FastEthernet0/9
  switchport access vlan 10
  switchport mode access
+ switchport port-security mac-address sticky
  switchport port-security
+ spanning-tree portfast
  spanning-tree bpduguard enable
  ip verify source port-security
  ip dhcp snooping limit rate 3
@@ -120,7 +133,9 @@ interface FastEthernet0/9
 interface FastEthernet0/10
  switchport access vlan 10
  switchport mode access
+ switchport port-security mac-address sticky
  switchport port-security
+ spanning-tree portfast
  spanning-tree bpduguard enable
  ip verify source port-security
  ip dhcp snooping limit rate 3
@@ -128,7 +143,9 @@ interface FastEthernet0/10
 interface FastEthernet0/11
  switchport access vlan 10
  switchport mode access
+ switchport port-security mac-address sticky
  switchport port-security
+ spanning-tree portfast
  spanning-tree bpduguard enable
  ip verify source port-security
  ip dhcp snooping limit rate 3
@@ -136,7 +153,9 @@ interface FastEthernet0/11
 interface FastEthernet0/12
  switchport access vlan 10
  switchport mode access
+ switchport port-security mac-address sticky
  switchport port-security
+ spanning-tree portfast
  spanning-tree bpduguard enable
  ip verify source port-security
  ip dhcp snooping limit rate 3
@@ -144,7 +163,10 @@ interface FastEthernet0/12
 interface FastEthernet0/13
  switchport access vlan 10
  switchport mode access
+ switchport port-security mac-address sticky
+ switchport port-security mac-address sticky b025.aa3d.f181
  switchport port-security
+ spanning-tree portfast
  spanning-tree bpduguard enable
  ip verify source port-security
  ip dhcp snooping limit rate 3
@@ -152,7 +174,9 @@ interface FastEthernet0/13
 interface FastEthernet0/14
  switchport access vlan 10
  switchport mode access
+ switchport port-security mac-address sticky
  switchport port-security
+ spanning-tree portfast
  spanning-tree bpduguard enable
  ip verify source port-security
  ip dhcp snooping limit rate 3
@@ -160,7 +184,10 @@ interface FastEthernet0/14
 interface FastEthernet0/15
  switchport access vlan 10
  switchport mode access
+ switchport port-security mac-address sticky
+ switchport port-security mac-address sticky 54e1.ad7d.fb5e
  switchport port-security
+ spanning-tree portfast
  spanning-tree bpduguard enable
  ip verify source port-security
  ip dhcp snooping limit rate 3
@@ -168,7 +195,9 @@ interface FastEthernet0/15
 interface FastEthernet0/16
  switchport access vlan 10
  switchport mode access
+ switchport port-security mac-address sticky
  switchport port-security
+ spanning-tree portfast
  spanning-tree bpduguard enable
  ip verify source port-security
  ip dhcp snooping limit rate 3
@@ -176,7 +205,9 @@ interface FastEthernet0/16
 interface FastEthernet0/17
  switchport access vlan 10
  switchport mode access
+ switchport port-security mac-address sticky
  switchport port-security
+ spanning-tree portfast
  spanning-tree bpduguard enable
  ip verify source port-security
  ip dhcp snooping limit rate 3
@@ -184,7 +215,9 @@ interface FastEthernet0/17
 interface FastEthernet0/18
  switchport access vlan 10
  switchport mode access
+ switchport port-security mac-address sticky
  switchport port-security
+ spanning-tree portfast
  spanning-tree bpduguard enable
  ip verify source port-security
  ip dhcp snooping limit rate 3
@@ -192,7 +225,10 @@ interface FastEthernet0/18
 interface FastEthernet0/19
  switchport access vlan 40
  switchport mode access
+ switchport port-security mac-address sticky
+ switchport port-security mac-address sticky 54e1.ad7d.fb5e
  switchport port-security
+ spanning-tree portfast
  spanning-tree bpduguard enable
  ip verify source port-security
  ip dhcp snooping limit rate 3
@@ -200,21 +236,27 @@ interface FastEthernet0/19
 interface FastEthernet0/20
  switchport access vlan 40
  switchport mode access
+ switchport port-security mac-address sticky
+ switchport port-security mac-address sticky b025.aa3d.f181
  switchport port-security
+ spanning-tree portfast
  spanning-tree bpduguard enable
  ip verify source port-security
  ip dhcp snooping limit rate 3
 !
 interface FastEthernet0/21
  switchport access vlan 111
+ switchport port-security mac-address sticky
  shutdown
 !
 interface FastEthernet0/22
  switchport access vlan 111
+ switchport port-security mac-address sticky
  shutdown
 !
 interface FastEthernet0/23
  switchport access vlan 111
+ switchport port-security mac-address sticky
  shutdown
 !
 interface FastEthernet0/24
@@ -229,7 +271,6 @@ interface GigabitEthernet0/2
 !
 interface Vlan1
  ip address 192.168.0.89 255.255.255.240
- no shutdown
 !
 interface Vlan10
  no ip address
@@ -239,7 +280,8 @@ interface Vlan40
 !
 ip http server
 ip http secure-server
-logging trap notifications
+logging trap warnings
+logging host 192.168.0.83
 no cdp run
 tacacs server TACACSVR
  address ipv4 192.168.0.83

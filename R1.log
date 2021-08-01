@@ -24,6 +24,7 @@ aaa group server tacacs+ TACACSVR1
  ip tacacs source-interface GigabitEthernet0/2
 !
 aaa authentication login AUTH-LIST-VRF group TACACSVR1 local
+aaa accounting exec default stop-only group TACACSVR1 group tacacs+
 !
 !
 !
@@ -81,17 +82,21 @@ ip ssh version 2
 !
 !
 !
+interface Loopback0
+ no ip address
+!
 interface Embedded-Service-Engine0/0
  no ip address
  shutdown
 !
 interface GigabitEthernet0/0
  ip address 172.27.47.25 255.255.255.248
+ ip flow ingress
+ ip flow egress
  ip nat outside
  ip virtual-reassembly in
  duplex auto
  speed auto
- no shutdown
 !
 interface GigabitEthernet0/1
  ip address 192.168.0.121 255.255.255.252
@@ -99,14 +104,12 @@ interface GigabitEthernet0/1
  ip virtual-reassembly in
  duplex auto
  speed auto
- no shutdown
 !
 interface GigabitEthernet0/2
  vrf forwarding Mgmt-vrf
  ip address 192.168.0.84 255.255.255.240
  duplex auto
  speed auto
- no shutdown
 !
 interface Serial0/0/0
  no ip address
@@ -122,6 +125,8 @@ ip forward-protocol nd
 !
 no ip http server
 no ip http secure-server
+ip flow-export version 9
+ip flow-export destination 192.168.0.83 9996
 !
 ip nat pool public_access 129.126.164.25 129.126.164.30 netmask 255.255.255.248
 ip nat inside source list 1 pool public_access overload
@@ -137,14 +142,15 @@ ip route 192.168.0.0 255.255.255.224 192.168.0.122
 ip route 192.168.0.32 255.255.255.224 192.168.0.122
 ip route 192.168.0.64 255.255.255.240 192.168.0.122
 ip route 192.168.0.96 255.255.255.248 192.168.0.122
+ip route 192.168.0.104 255.255.255.252 192.168.0.122
+ip route 192.168.0.108 255.255.255.252 192.168.0.122
 ip route 192.168.0.112 255.255.255.252 192.168.0.122
 ip route 192.168.0.116 255.255.255.252 192.168.0.122
 ip route 192.168.0.124 255.255.255.252 GigabitEthernet0/1
 ip route vrf Mgmt-vrf 192.168.0.80 255.255.255.240 192.168.0.82
 !
-ip access-list extended ALLOW_WEB
- permit tcp any host 129.126.164.26 eq www
-!
+logging trap warnings
+logging host 192.168.0.83
 !
 !
 tacacs server TACACSVR
@@ -154,6 +160,28 @@ access-list 1 permit 192.168.0.96 0.0.0.7
 access-list 1 permit 192.168.0.64 0.0.0.15
 access-list 10 permit 162.159.200.123
 access-list 20 permit 192.168.0.0 0.0.0.255
+access-list 110 deny   ip 127.0.0.0 0.255.255.255 any
+access-list 110 deny   ip 192.0.2.0 0.0.0.255 any
+access-list 110 deny   ip 224.0.0.0 31.255.255.255 any
+access-list 110 deny   ip 10.0.0.0 0.255.255.255 any
+access-list 110 deny   ip 172.16.0.0 0.15.255.255 any
+access-list 110 deny   ip 192.168.0.0 0.0.255.255 any
+access-list 110 deny   ip 192.168.0.0 0.0.0.255 any
+access-list 110 deny   ip any 192.168.0.0 0.0.0.31
+access-list 110 deny   ip any 192.168.0.32 0.0.0.31
+access-list 110 deny   ip any 192.168.0.64 0.0.0.15
+access-list 110 deny   ip any 192.168.0.80 0.0.0.15
+access-list 110 deny   ip any 192.168.0.96 0.0.0.7
+access-list 110 deny   ip any 192.168.0.104 0.0.0.3
+access-list 110 deny   ip any 192.168.0.108 0.0.0.3
+access-list 110 deny   ip any 192.168.0.112 0.0.0.3
+access-list 110 deny   ip any 192.168.0.116 0.0.0.3
+access-list 110 deny   ip any 192.168.0.120 0.0.0.3
+access-list 110 deny   ip any 192.168.0.124 0.0.0.3
+access-list 110 deny   icmp any any echo
+access-list 110 deny   icmp any any timestamp-request
+access-list 110 deny   icmp any any mask-request
+access-list 110 permit ip any any
 !
 !
 !

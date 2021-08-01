@@ -16,6 +16,8 @@ aaa new-model
 !
 !
 aaa authentication login AUTH group tacacs+ local
+aaa accounting exec default start-stop group tacacs+
+aaa accounting commands 15 default stop-only group tacacs+
 !
 !
 !
@@ -52,9 +54,12 @@ ip ssh version 2
 !
 !
 !
+interface Loopback0
+ no ip address
+!
 interface FastEthernet0/1
  switchport trunk native vlan 100
- switchport trunk allowed vlan 1-110,112-4094
+ switchport trunk allowed vlan 10,20,30,40
  switchport mode trunk
  switchport nonegotiate
  ip arp inspection trust
@@ -62,7 +67,7 @@ interface FastEthernet0/1
 !
 interface FastEthernet0/2
  switchport trunk native vlan 100
- switchport trunk allowed vlan 1-110,112-4094
+ switchport trunk allowed vlan 10,20,30,40
  switchport mode trunk
  switchport nonegotiate
  ip arp inspection trust
@@ -81,6 +86,7 @@ interface FastEthernet0/5
  switchport mode access
  switchport nonegotiate
  switchport port-security
+ spanning-tree portfast
  spanning-tree bpduguard enable
  ip verify source port-security
  ip dhcp snooping limit rate 3
@@ -90,6 +96,7 @@ interface FastEthernet0/6
  switchport mode access
  switchport nonegotiate
  switchport port-security
+ spanning-tree portfast
  spanning-tree bpduguard enable
  ip verify source port-security
  ip dhcp snooping limit rate 3
@@ -99,6 +106,7 @@ interface FastEthernet0/7
  switchport mode access
  switchport nonegotiate
  switchport port-security
+ spanning-tree portfast
  spanning-tree bpduguard enable
  ip verify source port-security
  ip dhcp snooping limit rate 3
@@ -108,6 +116,7 @@ interface FastEthernet0/8
  switchport mode access
  switchport nonegotiate
  switchport port-security
+ spanning-tree portfast
  spanning-tree bpduguard enable
  ip verify source port-security
  ip dhcp snooping limit rate 3
@@ -117,6 +126,7 @@ interface FastEthernet0/9
  switchport mode access
  switchport nonegotiate
  switchport port-security
+ spanning-tree portfast
  spanning-tree bpduguard enable
  ip verify source port-security
  ip dhcp snooping limit rate 3
@@ -126,6 +136,7 @@ interface FastEthernet0/10
  switchport mode access
  switchport nonegotiate
  switchport port-security
+ spanning-tree portfast
  spanning-tree bpduguard enable
  ip verify source port-security
  ip dhcp snooping limit rate 3
@@ -135,6 +146,7 @@ interface FastEthernet0/11
  switchport mode access
  switchport nonegotiate
  switchport port-security
+ spanning-tree portfast
  spanning-tree bpduguard enable
  ip verify source port-security
  ip dhcp snooping limit rate 3
@@ -144,6 +156,7 @@ interface FastEthernet0/12
  switchport mode access
  switchport nonegotiate
  switchport port-security
+ spanning-tree portfast
  spanning-tree bpduguard enable
  ip verify source port-security
  ip dhcp snooping limit rate 3
@@ -153,6 +166,7 @@ interface FastEthernet0/13
  switchport mode access
  switchport nonegotiate
  switchport port-security
+ spanning-tree portfast
  spanning-tree bpduguard enable
  ip verify source port-security
  ip dhcp snooping limit rate 3
@@ -162,6 +176,7 @@ interface FastEthernet0/14
  switchport mode access
  switchport nonegotiate
  switchport port-security
+ spanning-tree portfast
  spanning-tree bpduguard enable
  ip verify source port-security
  ip dhcp snooping limit rate 3
@@ -171,6 +186,7 @@ interface FastEthernet0/15
  switchport mode access
  switchport nonegotiate
  switchport port-security
+ spanning-tree portfast
  spanning-tree bpduguard enable
  ip verify source port-security
  ip dhcp snooping limit rate 3
@@ -180,6 +196,7 @@ interface FastEthernet0/16
  switchport mode access
  switchport nonegotiate
  switchport port-security
+ spanning-tree portfast
  spanning-tree bpduguard enable
  ip verify source port-security
  ip dhcp snooping limit rate 3
@@ -189,6 +206,7 @@ interface FastEthernet0/17
  switchport mode access
  switchport nonegotiate
  switchport port-security
+ spanning-tree portfast
  spanning-tree bpduguard enable
  ip verify source port-security
  ip dhcp snooping limit rate 3
@@ -198,6 +216,7 @@ interface FastEthernet0/18
  switchport mode access
  switchport nonegotiate
  switchport port-security
+ spanning-tree portfast
  spanning-tree bpduguard enable
  ip verify source port-security
  ip dhcp snooping limit rate 3
@@ -207,6 +226,7 @@ interface FastEthernet0/19
  switchport mode access
  switchport nonegotiate
  switchport port-security
+ spanning-tree portfast
  spanning-tree bpduguard enable
  ip verify source port-security
  ip dhcp snooping limit rate 3
@@ -216,6 +236,7 @@ interface FastEthernet0/20
  switchport mode access
  switchport nonegotiate
  switchport port-security
+ spanning-tree portfast
  spanning-tree bpduguard enable
  ip verify source port-security
  ip dhcp snooping limit rate 3
@@ -225,6 +246,7 @@ interface FastEthernet0/21
  switchport mode access
  switchport nonegotiate
  switchport port-security
+ spanning-tree portfast
  spanning-tree bpduguard enable
  ip verify source port-security
  ip dhcp snooping limit rate 3
@@ -234,6 +256,7 @@ interface FastEthernet0/22
  switchport mode access
  switchport nonegotiate
  switchport port-security
+ spanning-tree portfast
  spanning-tree bpduguard enable
  ip verify source port-security
  ip dhcp snooping limit rate 3
@@ -243,6 +266,7 @@ interface FastEthernet0/23
  switchport mode access
  switchport nonegotiate
  switchport port-security
+ spanning-tree portfast
  spanning-tree bpduguard enable
  ip verify source port-security
  ip dhcp snooping limit rate 3
@@ -260,13 +284,14 @@ interface GigabitEthernet0/2
 !
 interface Vlan1
  ip address 192.168.0.90 255.255.255.240
- no shutdown
 !
 interface Vlan20
  no ip address
 !
 ip http server
 ip http secure-server
+logging trap warnings
+logging host 192.168.0.83
 no cdp run
 tacacs server TACACSERVER
  address ipv4 192.168.0.83

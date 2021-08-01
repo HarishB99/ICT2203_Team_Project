@@ -20,6 +20,8 @@ aaa new-model
 !
 !
 aaa authentication login AUTH-LIST group tacacs+ local
+aaa accounting exec default start-stop group tacacs+
+aaa accounting commands 15 default stop-only group tacacs+
 !
 !
 !
@@ -56,18 +58,22 @@ ip dhcp excluded-address 192.168.0.102
 ip dhcp pool LAB1
  network 192.168.0.0 255.255.255.224
  default-router 192.168.0.1
+ dns-server 8.8.8.8
 !
 ip dhcp pool LAB2
  network 192.168.0.32 255.255.255.224
  default-router 192.168.0.33
+ dns-server 8.8.8.8
 !
 ip dhcp pool STAFF
  network 192.168.0.64 255.255.255.240
  default-router 192.168.0.65
+ dns-server 8.8.8.8
 !
 ip dhcp pool NETADM
  network 192.168.0.96 255.255.255.248
  default-router 192.168.0.97
+ dns-server 8.8.8.8
 !
 !
 !
@@ -158,6 +164,9 @@ policy-map system-cpp-policy
 !
 !
 !
+interface Loopback0
+ no ip address
+!
 interface GigabitEthernet0/0
  vrf forwarding Mgmt-vrf
  no ip address
@@ -168,7 +177,6 @@ interface GigabitEthernet1/0/1
  description To Internet Firewall
  no switchport
  ip address 192.168.0.106 255.255.255.252
- no shutdown
 !
 interface GigabitEthernet1/0/2
 !
@@ -232,37 +240,36 @@ interface GigabitEthernet1/1/4
 !
 interface Vlan1
  ip address 192.168.0.87 255.255.255.240
- no shutdown
 !
 interface Vlan10
+ ip dhcp relay information trusted
  ip address 192.168.0.2 255.255.255.224
  standby version 2
  standby 1 ip 192.168.0.1
  standby 1 priority 150
  standby 1 preempt
- no shutdown
 !
 interface Vlan20
+ ip dhcp relay information trusted
  ip address 192.168.0.34 255.255.255.224
  standby version 2
  standby 2 ip 192.168.0.33
  standby 2 preempt
- no shutdown
 !
 interface Vlan30
+ ip dhcp relay information trusted
  ip address 192.168.0.66 255.255.255.240
  standby version 2
  standby 3 ip 192.168.0.65
  standby 3 preempt
- no shutdown
 !
 interface Vlan40
+ ip dhcp relay information trusted
  ip address 192.168.0.98 255.255.255.248
  standby version 2
  standby 4 ip 192.168.0.97
  standby 4 priority 150
  standby 4 preempt
- no shutdown
 !
 ip forward-protocol nd
 ip http server
@@ -273,10 +280,12 @@ ip ssh version 2
 !
 !
 !
+logging trap warnings
+logging host 192.168.0.83
 !
 !
 tacacs server TACACSVR
- address ipv4 192.168.1.11
+ address ipv4 192.168.0.83
  key S!t!ct@wzhjc55
 !
 !
