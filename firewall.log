@@ -97,7 +97,9 @@ aaa-server TACACSVRGRP protocol tacacs+
 aaa-server TACACSVRGRP (Management) host 192.168.0.83
  key S!t!ct@wzhjc55
 user-identity default-domain LOCAL
-aaa authentication ssh console TACACSVRGRP LOCAL
+aaa authentication ssh console TACACSVRGRP LOCAL\
+aaa accounting ssh console TACACSVRGRP
+aaa accounting command TACACSVRGRP
 no snmp-server location
 no snmp-server contact
 snmp-server enable traps snmp authentication linkup linkdown coldstart warmstart
