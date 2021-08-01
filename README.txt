@@ -12,7 +12,7 @@
 - Accounting
 
 # firewall
-- ACLs and MPF
+- ACLs and MPF for TCP SYN attack and Slowloris attack
 - Syslog
 - Authentication
 - Accounting
