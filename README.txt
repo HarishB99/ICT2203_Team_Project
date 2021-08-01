@@ -1,19 +1,24 @@
 # R1
 - ACLs
+- Syslog
 
 # R2
 - ACLs
+- Syslog
 
 # firewall
 - ACLs and MPF
+- Syslog
 
 # Gateway1
 - STP root guard
 - Disable CDP
+- Syslog
 
 # Gateway2
 - STP root guard
 - Disable CDP
+- Syslog
 
 # S1
 - Port security
@@ -27,6 +32,8 @@
 - Dynamic ARP Inspection (DAI)
 - IP Source Guard
 - Disable CDP
+- Syslog
+- Netflow
 
 # S2
 - Port security
@@ -40,3 +47,4 @@
 - Dynamic ARP Inspection (DAI)
 - IP Source Guard
 - Disable CDP
+- Syslog
