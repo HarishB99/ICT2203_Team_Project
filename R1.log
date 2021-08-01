@@ -191,6 +191,7 @@ access-list 110 deny   ip any 192.168.0.124 0.0.0.3
 access-list 110 deny   icmp any any echo
 access-list 110 deny   icmp any any timestamp-request
 access-list 110 deny   icmp any any mask-request
+access-list 110 permit ip any any
 ip access-list extended ICMPscan-out
  permit icmp 192.168.0.96 0.0.0.7 any echo
  permit icmp 192.168.0.80 0.0.0.15 any echo
