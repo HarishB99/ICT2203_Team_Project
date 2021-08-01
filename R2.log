@@ -79,6 +79,9 @@ ip ssh version 2
 !
 !
 !
+interface Loopback0
+ no ip address
+!
 interface Embedded-Service-Engine0/0
  no ip address
  shutdown
@@ -128,6 +131,8 @@ ip route 192.168.0.116 255.255.255.252 192.168.0.126
 ip route 192.168.0.120 255.255.255.252 GigabitEthernet0/1
 ip route vrf Mgmt-vrf 192.168.0.80 255.255.255.240 192.168.0.82
 !
+logging trap warnings
+logging host 192.168.0.83
 !
 !
 !

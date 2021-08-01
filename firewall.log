@@ -125,6 +125,8 @@ username NetManWzhjc password 6aRE2kKKBPzHikzE encrypted
 !
 class-map inspection_default
  match default-inspection-traffic
+class-map HTTP_SERVER
+ match access-list SERVER
 !
 !
 policy-map type inspect dns preset_dns_map
@@ -150,8 +152,14 @@ policy-map global_policy
   inspect xdmcp
   inspect icmp
   inspect http
+policy-map POLICY_SERVER
+ class HTTP_SERVER
+  set connection embryonic-conn-max 100
+  set connection per-client-embryonic-max 10
+  set connection timeout embryonic 00:00:05
 !
 service-policy global_policy global
+service-policy POLICY_SERVER interface outside
 prompt hostname context
 no call-home reporting anonymous
 call-home
