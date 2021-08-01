@@ -177,6 +177,7 @@ interface GigabitEthernet1/0/1
  description To Internet Firewall
  no switchport
  ip address 192.168.0.110 255.255.255.252
+ no shutdown
 !
 interface GigabitEthernet1/0/2
 !
@@ -247,6 +248,7 @@ interface Vlan10
  standby version 2
  standby 1 ip 192.168.0.1
  standby 1 preempt
+ no shutdown
 !
 interface Vlan20
  ip dhcp relay information trusted
@@ -255,6 +257,7 @@ interface Vlan20
  standby 2 ip 192.168.0.33
  standby 2 priority 150
  standby 2 preempt
+ no shutdown
 !
 interface Vlan30
  ip dhcp relay information trusted
@@ -263,6 +266,7 @@ interface Vlan30
  standby 3 ip 192.168.0.65
  standby 3 priority 150
  standby 3 preempt
+ no shutdown
 !
 interface Vlan40
  ip dhcp relay information trusted
@@ -270,6 +274,7 @@ interface Vlan40
  standby version 2
  standby 4 ip 192.168.0.97
  standby 4 preempt
+ no shutdown
 !
 ip forward-protocol nd
 ip http server

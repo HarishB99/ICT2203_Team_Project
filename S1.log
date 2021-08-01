@@ -271,6 +271,7 @@ interface GigabitEthernet0/2
 !
 interface Vlan1
  ip address 192.168.0.89 255.255.255.240
+ no shutdown
 !
 interface Vlan10
  no ip address
