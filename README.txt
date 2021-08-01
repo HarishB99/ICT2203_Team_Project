@@ -2,24 +2,34 @@
 - ACLs
 - Syslog
 - Netflow
+- Authentication
+- Accounting
 
 # R2
 - ACLs
 - Syslog
+- Authentication
+- Accounting
 
 # firewall
 - ACLs and MPF
 - Syslog
+- Authentication
+- Accounting
 
 # Gateway1
 - STP root guard
 - Disable CDP
 - Syslog
+- Authentication
+- Accounting
 
 # Gateway2
 - STP root guard
 - Disable CDP
 - Syslog
+- Authentication
+- Accounting
 
 # S1
 - Port security
@@ -34,6 +44,9 @@
 - IP Source Guard
 - Disable CDP
 - Syslog
+- Authentication
+- Authorisation
+- Accounting
 
 # S2
 - Port security
@@ -48,3 +61,5 @@
 - IP Source Guard
 - Disable CDP
 - Syslog
+- Authentication
+- Accounting
