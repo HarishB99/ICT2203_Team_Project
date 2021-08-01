@@ -24,7 +24,8 @@ aaa group server tacacs+ TACACSVR1
  ip tacacs source-interface GigabitEthernet0/2
 !
 aaa authentication login AUTH-LIST-VRF group TACACSVR1 local
-aaa accounting exec default stop-only group TACACSVR1 group tacacs+
+aaa accounting system default vrf Mgmt-vrf start-stop group TACACSVR1
+aaa accounting system default vrf Mgmt-vrf stop-only group TACACSVR1
 !
 !
 !
