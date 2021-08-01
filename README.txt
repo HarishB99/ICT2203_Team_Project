@@ -8,7 +8,7 @@
 - Syslog
 
 # firewall
-- ACLs and MPF
+- ACLs and MPF for TCP SYN attack and Slowloris attack
 - Syslog
 
 # Gateway1
