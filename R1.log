@@ -163,6 +163,9 @@ access-list 1 permit 192.168.0.96 0.0.0.7
 access-list 1 permit 192.168.0.64 0.0.0.15
 access-list 10 permit 162.159.200.123
 access-list 20 permit 192.168.0.0 0.0.0.255
+access-list 110 permit tcp 172.27.58.128 255.255.255.128 host 129.126.164.25 eq 22
+access-list 110 permit udp 172.27.58.128 255.255.255.128 host 129.126.164.26 eq 53
+access-list 110 permit tcp 172.27.58.128 255.255.255.128 host 129.126.164.27 eq 80
 access-list 110 deny   ip 127.0.0.0 0.255.255.255 any
 access-list 110 deny   ip 192.0.2.0 0.0.0.255 any
 access-list 110 deny   ip 224.0.0.0 31.255.255.255 any
